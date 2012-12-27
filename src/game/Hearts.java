@@ -1,18 +1,16 @@
 package game;
 import java.util.Collections;
 
-import players.Yadav;
+import players.DumbPlayer;
 
-public class Hearts {
-	
-	
+public class Hearts {	
 	
 	public static void main(String[] args) {
 		Player[] player = new Player[4];
-		player[0] = new Yadav(0);
-		player[1] = new Yadav(1);
-		player[2] = new Yadav(2);
-		player[3] = new Yadav(3);
+		player[0] = new DumbPlayer(0);
+		player[1] = new DumbPlayer(1);
+		player[2] = new DumbPlayer(2);
+		player[3] = new DumbPlayer(3);
 		int leadId = -1;
 
 		CardPile deck = new CardPile();
@@ -33,18 +31,23 @@ public class Hearts {
 		}
 		
 		for (int i = 0; i < 13; i++) {
-			Trick onTable = new Trick();
+			Trick trick = new Trick(leadId);
 			for (int j = 0; j < 4; j++) {
 				Player currentPlayer = player[(j+leadId)%4];
-				Card played = currentPlayer.play((Trick)onTable.clone());
+				Card played = currentPlayer.play((Trick)trick.clone(), (CardPile)currentPlayer.hand.clone());
 				currentPlayer.hand.remove(played);
-				onTable.add(played);
+				trick.add(currentPlayer.getId(), played);
 				System.out.println(currentPlayer.getName() + " played " + played.getRank() + " of " + played.getSuit());
 			}
-			leadId = manager.collectRound(leadId, onTable);
+			leadId = trick.getTakerId();	
+			player[leadId].addScore(trick.totalPoints());
+			manager.setTrick(trick);
 			System.out.println(player[leadId].getName() + " took the hand.\n");
 		}
 		
+		for (int i = 0; i < 4; i++) {
+			System.out.println(player[i].getName() + ": " + player[i].getScore() + " points");
+		}
 	}
 	
 	

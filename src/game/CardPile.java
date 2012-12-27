@@ -15,10 +15,6 @@ public class CardPile extends ArrayList<Card> {
 		}
 	}
 
-	@Override
-	public Object clone() {
-		return (CardPile) super.clone();
-	}
 	public boolean contains(Card.Suit suit) {
 		for (Card card : this)
 			if (card.getSuit() == suit) 

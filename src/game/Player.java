@@ -2,7 +2,8 @@ package game;
 
 public abstract class Player {
 	private int id;
-	private Manager manager;
+	protected Manager manager;
+	private int score;
 	CardPile hand;
 	
 	public Player(int id) {
@@ -35,11 +36,21 @@ public abstract class Player {
 		return hand.contains(card);
 	}
 	
-	protected CardPile getHand() {
-		return (CardPile) hand.clone();
+	
+	void setHand(CardPile hand) {
+		this.hand = hand;
 	}
 	
-	public abstract Card play(Trick onTable);
+	void addScore(int score) {
+		this.score += score;
+	}
+
+	int getScore() {
+		return score;
+	}
+	
+	public abstract Card play(Trick onTable, CardPile hand);
 	
 	public abstract String getName();
+
 }
