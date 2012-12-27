@@ -1,5 +1,7 @@
 package game;
 
+import game.Card.Suit;
+
 public abstract class Player {
 	private int id;
 	protected Manager manager;
@@ -21,11 +23,11 @@ public abstract class Player {
 			return false;
 		
 		// No points on first round
-		if (manager.isFirstRound() && card.getPoints() != 0)
+		if (manager.isFirstRound() && card.getPoints() != 0 && hand.containsNonPoints())
 			return false;
 		
 		// Hearts cannot be started with until Hearts is broken
-		if (onTable.size() == 0 && card.getSuit() == Card.Suit.HEARTS && !manager.isHeartsBroken())
+		if (onTable.size() == 0 && card.getSuit() == Card.Suit.HEARTS && !manager.isHeartsBroken() && hand.containsNonHearts())
 			return false;
 		
 		// If your hand contains the base suit, you must play it

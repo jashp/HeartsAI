@@ -2,13 +2,12 @@ package game;
 
 public class Manager {
 	private static final Manager instance = new Manager();
-	private Trick[] pastTricks = new Trick[13];
+	private Trick[] pastTricks;
 	private boolean heartsBroken;
 	private int currentTrick;
 	
 	private Manager() {
-		heartsBroken = false;
-		currentTrick = 0;
+		reset();
 	}
 	
     public static Manager getInstance() {
@@ -35,5 +34,10 @@ public class Manager {
 		currentTrick++;
 	}
 	
+	void reset() {
+		pastTricks = new Trick[13];
+		heartsBroken = false;
+		currentTrick = 0;
+	}
 
 }

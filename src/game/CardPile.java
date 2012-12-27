@@ -22,11 +22,25 @@ public class CardPile extends ArrayList<Card> {
 		return false;
 	}
 	
-	public boolean contains(Card.Rank rank, Card.Suit suit) {
+	public boolean containsNonHearts() {
 		for (Card card : this)
-			if (card.getRank() == rank && card.getSuit() == suit) 
+			if (card.getSuit() != Card.Suit.HEARTS) 
 				return true;
 		return false;
+	}
+	
+	public boolean containsNonPoints() {
+		for (Card card : this)
+			if (card.getPoints() == 0) 
+				return true;
+		return false;
+	}
+	
+	public Card find(Card.Rank rank, Card.Suit suit) {
+		for (Card card : this)
+			if (card.getRank() == rank && card.getSuit() == suit) 
+				return card;
+		return null;
 	}
 
 	public void print() {

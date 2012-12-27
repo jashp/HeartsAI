@@ -35,7 +35,7 @@ public class DumbPlayer extends Player{
 	public Card play(Trick onTable, CardPile hand) {
 		int i;
 		do { // Keeps picking a random card till one works
-			i = (int)(Math.random() * (hand.size()));			
+			i = (int)(Math.random() * (hand.size()));
 		} while (!isValidPlay(onTable, hand.get(i)));
 		
 		return hand.get(i);
